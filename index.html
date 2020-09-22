@@ -11,6 +11,23 @@
   <title>Document</title>
 </head>
 <body>
+  <div class="wrapper">
+    <input type="text" name="movie-name" placeholder="Titolo del film" value="">
+    <button type="button" class="btn" name="button">Search</button>
+  </div>
+
+  <div id="lista-film">
+
+  </div>
+  
+  <script id="film-template" type="text/x-handlebars-template">
+    <div class="entry">
+      <h1>{{title}}</h1>
+      <div class="body">
+        {{body}}
+      </div>
+    </div>
+  </script>
 
   <script src="js/script.js" charset="utf-8"></script>
 </body>

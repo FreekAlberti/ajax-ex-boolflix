@@ -3,3 +3,54 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  background-color: #000;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+input {
+  margin: 20px;
+  color: white;
+  background-color: black;
+}
+
+.btn {
+  margin: 20px;
+  border: none;
+  width: 150px;
+  height: 50px;
+  font-size: 20px;
+  font-weight: 900;
+  text-align: center;
+  line-height: 50px;
+  color: rgba(255, 255, 255, 0.9);
+  border-radius: 50px;
+  background: linear-gradient(-45deg, #ffa63d, #ff3d77, #338aff, #3cf0c5);
+  background-size: 600%;
+  animation: anime 7s linear infinite;
+  cursor: pointer;
+}
+
+@keyframes anime {
+  0%{
+    background-position: 0% 50%;
+  }
+  50%{
+    background-position: 100% 50%;
+  }
+  100%{
+    background-position: 0% 50%;
+  }
+}
+
+#lista-film {
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  margin-top: 35px;
+}
