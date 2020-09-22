@@ -1,5 +1,35 @@
 $(document).ready(function() {
-$(".btn").click(function() {
+  $(".btn").click(function() {
+    chiamataAjax();
+  });
+  $(document).keydown(function(e){
+    if (e.keyCode == 13) {
+      chiamataAjax();
+    }
+  });
+});
+
+function risultatiFilm(filmAPI, ricerca) {
+  var source = $("#film-template").html();
+  var template = Handlebars.compile(source);
+  for (var i = 0; i < filmAPI.length; i++) {
+    var title = filmAPI[i].title;
+    var originalTitle = filmAPI[i].original_title;
+    var lan = filmAPI[i].original_language;
+    var voto = filmAPI[i].vote_average;
+    var context = {
+      "title" : title,
+      "original_title" : originalTitle,
+      "original_language" : lan,
+      "vote_average" : voto
+    };
+    var html = template(context);
+    $("#lista-film").append(html);
+  }
+  $(".input-titolo").val("");
+}
+
+function chiamataAjax() {
   var ricerca = $(".input-titolo").val();
   $.ajax(
     {
@@ -23,25 +53,4 @@ $(".btn").click(function() {
       }
     }
   );
-});
-});
-
-function risultatiFilm(filmAPI, ricerca) {
-  var source = $("#film-template").html();
-  var template = Handlebars.compile(source);
-  for (var i = 0; i < filmAPI.length; i++) {
-    var title = filmAPI[i].title;
-    var originalTitle = filmAPI[i].original_title;
-    var lan = filmAPI[i].original_language;
-    var voto = filmAPI[i].vote_average;
-    var context = {
-      "title" : title,
-      "original_title" : originalTitle,
-      "original_language" : lan,
-      "vote_average" : voto
-    };
-    var html = template(context);
-    $("#lista-film").append(html);
-  }
-  $(".input-titolo").val("");
 }
