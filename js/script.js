@@ -1,31 +1,48 @@
 $(document).ready(function() {
-var ricerca = "ritorno al futuro";
+$(".btn").click(function() {
+  var ricerca = $(".input-titolo").val();
+  console.log(ricerca);
   $.ajax(
     {
       "url": "https://api.themoviedb.org/3/search/movie",
       "data": {
         "api_key" : "e809f4ea095436f35151e7d0e1a01040",
-        "query" : ricerca
+        "query" : ricerca,
+        "language" : "it-IT",
+        "include_adult" : false
       },
       "method": "GET",
       "success": function (data, stato) {
-        console.log(data);
+        var filmAPI = data.results;
+        console.log(filmAPI);
+        risultatiFilm(filmAPI);
       },
       "error": function (richiesta, stato, errori) {
         console.log(errori);
       }
     }
   );
+});
 
-  // e809f4ea095436f35151e7d0e1a01040
 
   // Handlebars
+});
+
+function risultatiFilm(filmAPI) {
   var source = $("#film-template").html();
   var template = Handlebars.compile(source);
-  var context = {
-    title: "My New Post",
-    body: "This is my first post!"
-  };
-  var html = template(context);
-  $("#lista-film").append(html);
-});
+  for (var i = 0; i < filmAPI.length; i++) {
+    var title = filmAPI[i].title;
+    var originalTitle = filmAPI[i].original_title;
+    var lan = filmAPI[i].original_language;
+    var voto = filmAPI[i].vote_average;
+    var context = {
+      "title" : title,
+      "original_title" : originalTitle,
+      "original_language" : lan,
+      "vote_average" : voto
+    };
+    var html = template(context);
+    $("#lista-film").append(html);
+  }
+}

@@ -12,21 +12,23 @@
 </head>
 <body>
   <div class="wrapper">
-    <input type="text" name="movie-name" placeholder="Titolo del film" value="">
+    <input type="text" name="movie-name" class="input-titolo" placeholder="Titolo del film" value="">
     <button type="button" class="btn" name="button">Search</button>
   </div>
 
-  <div id="lista-film">
+  <ul id="lista-film">
 
-  </div>
-  
+  </ul>
+
   <script id="film-template" type="text/x-handlebars-template">
-    <div class="entry">
-      <h1>{{title}}</h1>
-      <div class="body">
-        {{body}}
-      </div>
-    </div>
+
+      <li class="elemento">
+        <h2>{{title}}</h2>
+        <h3><strong>titolo originale: </strong>{{original_title}}</h3>
+        <h3><strong>lingua originale: </strong>{{original_language}}</h3>
+        <h3><strong>voto: </strong>{{vote_average}}</h3>
+      </li>
+
   </script>
 
   <script src="js/script.js" charset="utf-8"></script>
