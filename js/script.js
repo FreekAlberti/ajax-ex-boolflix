@@ -18,11 +18,12 @@ function risultatiFilm(filmAPI, ricerca) {
     var lan = filmAPI[i].original_language;
     var voto = filmAPI[i].vote_average;
     var votoIntero = votoInt(voto);
+    var starRating = stars(votoIntero);
     var context = {
       "title" : title,
       "original_title" : originalTitle,
       "original_language" : lan,
-      "vote_average" : votoIntero
+      "vote_average" : starRating
     };
     var html = template(context);
     $("#lista-film").append(html);
@@ -60,4 +61,17 @@ function votoInt(voto) {
   var votoCinque = voto / 2;
   var votoIntero = Math.ceil(votoCinque);
   return votoIntero;
+}
+
+function stars(votoIntero) {
+  var starRating = "";
+  console.log(votoIntero);
+  for (var i = 1; i <= 5; i++) {
+    if (votoIntero >= i) {
+      starRating += '<i class="fas fa-star"></i>';
+    } else {
+      starRating += '<i class="far fa-star"></i>';
+    }
+  }
+  return starRating;
 }
