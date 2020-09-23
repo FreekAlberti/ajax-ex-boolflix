@@ -17,11 +17,12 @@ function risultatiFilm(filmAPI, ricerca) {
     var originalTitle = filmAPI[i].original_title;
     var lan = filmAPI[i].original_language;
     var voto = filmAPI[i].vote_average;
+    var votoIntero = votoInt(voto);
     var context = {
       "title" : title,
       "original_title" : originalTitle,
       "original_language" : lan,
-      "vote_average" : voto
+      "vote_average" : votoIntero
     };
     var html = template(context);
     $("#lista-film").append(html);
@@ -53,4 +54,10 @@ function chiamataAjax() {
       }
     }
   );
+}
+
+function votoInt(voto) {
+  var votoCinque = voto / 2;
+  var votoIntero = Math.ceil(votoCinque);
+  return votoIntero;
 }
