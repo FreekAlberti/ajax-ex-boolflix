@@ -65,7 +65,6 @@ function votoInt(voto) {
 
 function stars(votoIntero) {
   var starRating = "";
-  console.log(votoIntero);
   for (var i = 1; i <= 5; i++) {
     if (votoIntero >= i) {
       starRating += '<i class="fas fa-star"></i>';
