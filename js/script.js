@@ -32,7 +32,11 @@ function risultatiTv(tvAPI, ricerca) {
     var voto = tvAPI[i].vote_average;
     var votoIntero = votoInt(voto);
     var starRating = stars(votoIntero);
-    var bandieraLingua = "img/"+ lan + ".svg";
+    if (lan == "en" || lan == "it" || lan == "fr" || lan=="ja") {
+      var bandieraLingua = "img/"+ lan + ".svg";
+    } else {
+      var bandieraLingua = lan;
+    }
     var context = {
       "name" : name,
       "original_name" : originalName,
@@ -79,7 +83,11 @@ function risultatiFilm(filmAPI, ricerca) {
     var voto = filmAPI[i].vote_average;
     var votoIntero = votoInt(voto);
     var starRating = stars(votoIntero);
-    var bandieraLingua = "img/"+ lan + ".svg";
+    if (lan == "en" || lan == "it" || lan == "fr" || lan=="ja") {
+      var bandieraLingua = "img/"+ lan + ".svg";
+    } else {
+      var bandieraLingua = lan;
+    }
     console.log(bandieraLingua);
     console.log(lan);
     var context = {
