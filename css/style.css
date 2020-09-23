@@ -63,3 +63,8 @@ h1 {
   display: none;
   color: red;
 }
+
+img {
+  height: 20px;
+  width: 20px;
+}

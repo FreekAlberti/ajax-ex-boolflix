@@ -32,11 +32,12 @@ function risultatiTv(tvAPI, ricerca) {
     var voto = tvAPI[i].vote_average;
     var votoIntero = votoInt(voto);
     var starRating = stars(votoIntero);
+    var bandieraLingua = "img/"+ lan + ".svg";
     var context = {
       "name" : name,
       "original_name" : originalName,
-      "original_language" : lan,
-      "vote_average" : starRating
+      "vote_average" : starRating,
+      "flag-icon": bandieraLingua
     };
     var html = template(context);
     $("#lista-tv").append(html);
@@ -52,7 +53,7 @@ function chiamataAjaxTv() {
         "api_key" : "e809f4ea095436f35151e7d0e1a01040",
         "query" : ricerca,
         "language" : "it-IT",
-        "include_adult" : false
+        "include_adult" : false,
       },
       "method": "GET",
       "success": function (data, stato) {
@@ -78,11 +79,14 @@ function risultatiFilm(filmAPI, ricerca) {
     var voto = filmAPI[i].vote_average;
     var votoIntero = votoInt(voto);
     var starRating = stars(votoIntero);
+    var bandieraLingua = "img/"+ lan + ".svg";
+    console.log(bandieraLingua);
+    console.log(lan);
     var context = {
       "title" : title,
       "original_title" : originalTitle,
-      "original_language" : lan,
-      "vote_average" : starRating
+      "vote_average" : starRating,
+      "flag-icon": bandieraLingua
     };
     var html = template(context);
     $("#lista-film").append(html);
@@ -99,7 +103,7 @@ function chiamataAjaxFilm() {
         "api_key" : "e809f4ea095436f35151e7d0e1a01040",
         "query" : ricerca,
         "language" : "it-IT",
-        "include_adult" : false
+        "include_adult" : false,
       },
       "method": "GET",
       "success": function (data, stato) {
