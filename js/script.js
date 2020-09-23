@@ -113,7 +113,9 @@ function chiamataAjaxFilm() {
   );
 }
 
-// funzioni genriche
+// funzioni generiche
+
+// star rating
 
 function votoInt(voto) {
   var votoCinque = voto / 2;
@@ -132,6 +134,18 @@ function stars(votoIntero) {
   }
   return starRating;
 }
+
+// languages flag
+
+function lanFlag(lan) {
+  if (lan == en) {
+    var img = $(".bandiera");
+    img.src = "../img/united-states.svg";
+
+  }
+}
+
+
 
 function removeLi() {
   $("li").each(function() {
