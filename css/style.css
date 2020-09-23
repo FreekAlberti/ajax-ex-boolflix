@@ -48,7 +48,7 @@ input {
   }
 }
 
-#lista-film {
+#lista-film, #lista-tv {
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -57,4 +57,9 @@ input {
 
 .elemento {
   margin: 15px 0;
+}
+
+h1 {
+  display: none;
+  color: red;
 }
