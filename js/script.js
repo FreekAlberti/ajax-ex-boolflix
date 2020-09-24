@@ -32,10 +32,7 @@ function risultatiTv(tvAPI, ricerca) {
     var voto = tvAPI[i].vote_average;
     var votoIntero = votoInt(voto);
     var starRating = stars(votoIntero);
-    if (lan == "en" || lan == "it" || lan == "fr" || lan=="ja") {
-      var bandieraLingua = "img/"+ lan + ".svg";
-    } else {
-      var bandieraLingua = lan;
+    var bandieraLingua = lanFlag(lan);
     }
     var context = {
       "name" : name,
@@ -45,7 +42,6 @@ function risultatiTv(tvAPI, ricerca) {
     };
     var html = template(context);
     $("#lista-tv").append(html);
-  }
 }
 
 function chiamataAjaxTv() {
@@ -83,13 +79,7 @@ function risultatiFilm(filmAPI, ricerca) {
     var voto = filmAPI[i].vote_average;
     var votoIntero = votoInt(voto);
     var starRating = stars(votoIntero);
-    if (lan == "en" || lan == "it" || lan == "fr" || lan=="ja") {
-      var bandieraLingua = "img/"+ lan + ".svg";
-    } else {
-      var bandieraLingua = lan;
-    }
-    console.log(bandieraLingua);
-    console.log(lan);
+    var bandieraLingua = lanFlag(lan);
     var context = {
       "title" : title,
       "original_title" : originalTitle,
@@ -150,14 +140,15 @@ function stars(votoIntero) {
 // languages flag
 
 function lanFlag(lan) {
-  if (lan == en) {
-    var img = $(".bandiera");
-    img.src = "../img/united-states.svg";
-
+  var arrayLan = ["it", "en", "fr", "ja"];
+  if (arrayLan.includes(lan)) {
+    return "<img class='bandiera' src='img/"+ lan +".svg' alt='bandiera'>"
+  } else {
+    return lan;
   }
 }
 
-
+// altro
 
 function removeLi() {
   $("li").each(function() {
