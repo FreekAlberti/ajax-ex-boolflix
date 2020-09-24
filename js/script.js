@@ -77,9 +77,10 @@ function risultatiRender(risultatiAPI, ricerca) {
       var originalTitle = risultatiAPI[i].original_name;
       var container = $("#lista-tv");
     }
+    var story = risultatiAPI[i].overview;
     var lan = risultatiAPI[i].original_language;
     var voto = risultatiAPI[i].vote_average;
-    var poster = "https://image.tmdb.org/t/p/w200/" + risultatiAPI[i].poster_path;
+    var poster = "https://image.tmdb.org/t/p/w300/" + risultatiAPI[i].poster_path;
     var votoIntero = votoInt(voto);
     var starRating = stars(votoIntero);
     var bandieraLingua = lanFlag(lan);
@@ -88,7 +89,8 @@ function risultatiRender(risultatiAPI, ricerca) {
       "poster_path" : poster,
       "original_title" : originalTitle,
       "vote_average" : starRating,
-      "flag-icon": bandieraLingua
+      "flag-icon": bandieraLingua,
+      "story" : story
     };
     var html = template(context);
     container.append(html);
