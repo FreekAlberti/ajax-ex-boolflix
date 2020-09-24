@@ -11,20 +11,22 @@
   <title>Document</title>
 </head>
 <body>
-  <div class="wrapper">
-    <input type="text" name="movie-name" class="input-titolo" placeholder="Titolo del film" value="">
-    <button type="button" class="btn" name="button">Search</button>
-  </div>
+  <header class="wrapper">
+    <h1>Boolfix</h1>
+    <div class="sezione-ricerca">
+      <button type="button" class="btn" name="button">Search</button>
+      <input type="text" name="movie-name" class="input-titolo" placeholder="Titolo del film" value="">
+    </div>
+  </header>
+  <main>
+    <h2>Serie:</h2>
+    <ul id="lista-tv">
+    </ul>
 
-  <h1>Serie:</h1>
-  <ul id="lista-tv">
-
-  </ul>
-
-  <h1>Film:</h1>
-  <ul id="lista-film">
-
-  </ul>
+    <h2>Film:</h2>
+    <ul id="lista-film">
+    </ul>
+  </main>
 
   <script id="richiesta-template" type="text/x-handlebars-template">
       <li class="elemento">
