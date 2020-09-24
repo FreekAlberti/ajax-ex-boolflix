@@ -1,13 +1,13 @@
 $(document).ready(function() {
   $(".btn").click(function() {
-    $("h1").show();
+    $("h2").show();
     removeLi();
     chiamataAjaxTv();
     chiamataAjaxFilm();
   });
   $(document).keydown(function(e){
     if (e.keyCode == 13) {
-      $("h1").show();
+      $("h2").show();
       removeLi();
       chiamataAjaxTv();
       chiamataAjaxFilm();
