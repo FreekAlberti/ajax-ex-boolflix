@@ -27,6 +27,7 @@ function risultatiTv(tvAPI, ricerca) {
   var template = Handlebars.compile(source);
   for (var i = 0; i < tvAPI.length; i++) {
     var name = tvAPI[i].name;
+    var poster = "https://image.tmdb.org/t/p/w200/" + tvAPI[i].poster_path;
     var originalName = tvAPI[i].original_name;
     var lan = tvAPI[i].original_language;
     var voto = tvAPI[i].vote_average;
@@ -36,6 +37,7 @@ function risultatiTv(tvAPI, ricerca) {
     }
     var context = {
       "name" : name,
+      "poster_path" : poster,
       "original_name" : originalName,
       "vote_average" : starRating,
       "flag-icon": bandieraLingua
@@ -74,6 +76,7 @@ function risultatiFilm(filmAPI, ricerca) {
   var template = Handlebars.compile(source);
   for (var i = 0; i < filmAPI.length; i++) {
     var title = filmAPI[i].title;
+    var poster = "https://image.tmdb.org/t/p/w200/" + filmAPI[i].poster_path;
     var originalTitle = filmAPI[i].original_title;
     var lan = filmAPI[i].original_language;
     var voto = filmAPI[i].vote_average;
@@ -82,6 +85,7 @@ function risultatiFilm(filmAPI, ricerca) {
     var bandieraLingua = lanFlag(lan);
     var context = {
       "title" : title,
+      "poster_path" : poster,
       "original_title" : originalTitle,
       "vote_average" : starRating,
       "flag-icon": bandieraLingua
