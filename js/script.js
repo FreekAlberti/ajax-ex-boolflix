@@ -1,16 +1,16 @@
 $(document).ready(function() {
   $(".btn").click(function() {
-    $("h2").show();
     removeLi();
-    chiamataAjaxTv();
-    chiamataAjaxFilm();
+    $("h2").show();
+    chiamataAjax("tv");
+    chiamataAjax("movie");
   });
   $(document).keydown(function(e){
     if (e.keyCode == 13) {
-      $("h2").show();
       removeLi();
-      chiamataAjaxTv();
-      chiamataAjaxFilm();
+      $("h2").show();
+      chiamataAjax("tv");
+      chiamataAjax("movie");
     }
   });
 });
@@ -18,11 +18,11 @@ $(document).ready(function() {
 
 // FUNCTION
 
-function chiamataAjaxTv() {
+function chiamataAjax(url) {
   var ricerca = $(".input-titolo").val();
   $.ajax(
     {
-      "url": "https://api.themoviedb.org/3/search/tv",
+      "url": "https://api.themoviedb.org/3/search/" + url,
       "data": {
         "api_key" : "e809f4ea095436f35151e7d0e1a01040",
         "query" : ricerca,
@@ -32,29 +32,7 @@ function chiamataAjaxTv() {
       "method": "GET",
       "success": function (data, stato) {
         var risultatiAPI = data.results;
-        risultatiRender(risultatiAPI, ricerca);
-      },
-      "error": function (richiesta, stato, errori) {
-        console.log(errori);
-      }
-    }
-  );
-}
-
-function chiamataAjaxFilm() {
-  var ricerca = $(".input-titolo").val();
-  $.ajax(
-    {
-      "url": "https://api.themoviedb.org/3/search/movie",
-      "data": {
-        "api_key" : "e809f4ea095436f35151e7d0e1a01040",
-        "query" : ricerca,
-        "language" : "it-IT",
-        "include_adult" : false,
-      },
-      "method": "GET",
-      "success": function (data, stato) {
-        var risultatiAPI = data.results;
+        var risultatiRicerca = data.total_results;
         risultatiRender(risultatiAPI, ricerca);
       },
       "error": function (richiesta, stato, errori) {
@@ -72,15 +50,21 @@ function risultatiRender(risultatiAPI, ricerca) {
       var title = risultatiAPI[i].title;
       var originalTitle = risultatiAPI[i].original_title;
       var container = $("#lista-film");
+      var type = "film";
     } else {
       var title = risultatiAPI[i].name;
       var originalTitle = risultatiAPI[i].original_name;
       var container = $("#lista-tv");
+      var type = "serie TV";
     }
     var story = risultatiAPI[i].overview;
     var lan = risultatiAPI[i].original_language;
     var voto = risultatiAPI[i].vote_average;
-    var poster = "https://image.tmdb.org/t/p/w300/" + risultatiAPI[i].poster_path;
+    if (risultatiAPI[i].poster_path == null) {
+        var poster = "img/immagine_non_disponibile.jpg";
+    } else {
+      var poster = "https://image.tmdb.org/t/p/w300/" + risultatiAPI[i].poster_path;
+    }
     var votoIntero = votoInt(voto);
     var starRating = stars(votoIntero);
     var bandieraLingua = lanFlag(lan);
@@ -134,7 +118,7 @@ function lanFlag(lan) {
 // altro
 
 function removeLi() {
-  $("li").each(function() {
+  $(".elemento").each(function() {
     $(this).remove();
   });
 }
