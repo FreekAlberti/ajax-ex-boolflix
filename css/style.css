@@ -75,6 +75,11 @@ main {
   display: flex;
   overflow-x: auto;
   width: 100%;
+  -ms-overflow-style: none;
+}
+
+#lista-film::-webkit-scrollbar, #lista-tv::-webkit-scrollbar {
+  display: none;
 }
 
 .elemento {

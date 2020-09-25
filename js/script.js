@@ -33,7 +33,7 @@ function chiamataAjax(url) {
       "success": function (data, stato) {
         var risultatiAPI = data.results;
         var risultatiRicerca = data.total_results;
-        risultatiRender(risultatiAPI, ricerca);
+        risultatiRender(risultatiAPI, ricerca, url);
       },
       "error": function (richiesta, stato, errori) {
         console.log(errori);
@@ -42,7 +42,7 @@ function chiamataAjax(url) {
   );
 }
 
-function risultatiRender(risultatiAPI, ricerca) {
+function risultatiRender(risultatiAPI, ricerca, url) {
   var source = $("#richiesta-template").html();
   var template = Handlebars.compile(source);
   for (var i = 0; i < risultatiAPI.length; i++) {
@@ -57,6 +57,7 @@ function risultatiRender(risultatiAPI, ricerca) {
       var container = $("#lista-tv");
       var type = "serie TV";
     }
+    var id = risultatiAPI[i].id;
     var story = risultatiAPI[i].overview;
     var lan = risultatiAPI[i].original_language;
     var voto = risultatiAPI[i].vote_average;
@@ -68,19 +69,44 @@ function risultatiRender(risultatiAPI, ricerca) {
     var votoIntero = votoInt(voto);
     var starRating = stars(votoIntero);
     var bandieraLingua = lanFlag(lan);
+    var attori = chiamataAjaxAttori(url, id);
+    console.log(attori);
     var context = {
       "title" : title,
       "poster_path" : poster,
       "original_title" : originalTitle,
       "vote_average" : starRating,
       "flag-icon": bandieraLingua,
-      "story" : story
+      "story" : story,
+      "actor" : attori
     };
     var html = template(context);
     container.append(html);
   }
   $(".input-titolo").val("");
 }
+
+function chiamataAjaxAttori(url, id) {
+  $.ajax(
+    {
+      "url": "https://api.themoviedb.org/3/" + url + "/" + id +"/credits?api_key=e809f4ea095436f35151e7d0e1a01040",
+      "method": "GET",
+      "success": function (data, stato) {
+        var risultatiAPI = data.cast;
+        var listaAttori = [];
+        for (var i = 0; i < 5; i++) {
+          var attore = risultatiAPI[i].name;
+          listaAttori.push(attore);
+        }
+        return listaAttori;
+      },
+      "error": function (richiesta, stato, errori) {
+        console.log(errori);
+      }
+    }
+  );
+}
+
 
 // funzioni generiche
 
