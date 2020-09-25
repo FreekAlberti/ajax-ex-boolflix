@@ -63,7 +63,7 @@ function risultatiRender(risultatiAPI, ricerca) {
     if (risultatiAPI[i].poster_path == null) {
         var poster = "img/immagine_non_disponibile.jpg";
     } else {
-      var poster = "https://image.tmdb.org/t/p/w300/" + risultatiAPI[i].poster_path;
+      var poster = "https://image.tmdb.org/t/p/w342/" + risultatiAPI[i].poster_path;
     }
     var votoIntero = votoInt(voto);
     var starRating = stars(votoIntero);
