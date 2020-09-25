@@ -51,11 +51,13 @@ function risultatiRender(risultatiAPI, ricerca, url) {
       var originalTitle = risultatiAPI[i].original_title;
       var container = $("#lista-film");
       var type = "film";
+      chiamataAjaxAttori(url, id, container);
     } else {
       var title = risultatiAPI[i].name;
       var originalTitle = risultatiAPI[i].original_name;
       var container = $("#lista-tv");
       var type = "serie TV";
+      chiamataAjaxAttori(url, id, container);
     }
     var id = risultatiAPI[i].id;
     var story = risultatiAPI[i].overview;
@@ -69,16 +71,13 @@ function risultatiRender(risultatiAPI, ricerca, url) {
     var votoIntero = votoInt(voto);
     var starRating = stars(votoIntero);
     var bandieraLingua = lanFlag(lan);
-    var attori = chiamataAjaxAttori(url, id);
-    console.log(attori);
     var context = {
       "title" : title,
       "poster_path" : poster,
       "original_title" : originalTitle,
       "vote_average" : starRating,
       "flag-icon": bandieraLingua,
-      "story" : story,
-      "actor" : attori
+      "story" : story
     };
     var html = template(context);
     container.append(html);
@@ -86,7 +85,7 @@ function risultatiRender(risultatiAPI, ricerca, url) {
   $(".input-titolo").val("");
 }
 
-function chiamataAjaxAttori(url, id) {
+function chiamataAjaxAttori(url, id, container) {
   $.ajax(
     {
       "url": "https://api.themoviedb.org/3/" + url + "/" + id +"/credits?api_key=e809f4ea095436f35151e7d0e1a01040",
@@ -98,7 +97,7 @@ function chiamataAjaxAttori(url, id) {
           var attore = risultatiAPI[i].name;
           listaAttori.push(attore);
         }
-        return listaAttori;
+        console.log(listaAttori);
       },
       "error": function (richiesta, stato, errori) {
         console.log(errori);
