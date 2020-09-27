@@ -50,14 +50,14 @@ function risultatiRender(risultatiAPI, ricerca, url) {
       var title = risultatiAPI[i].title;
       var originalTitle = risultatiAPI[i].original_title;
       var container = $("#lista-film");
-      var type = "film";
-      chiamataAjaxAttori(url, id, container);
+      // var type = "film";
+      // var attori = chiamataAjaxAttori(url, id);
     } else {
       var title = risultatiAPI[i].name;
       var originalTitle = risultatiAPI[i].original_name;
       var container = $("#lista-tv");
-      var type = "serie TV";
-      chiamataAjaxAttori(url, id, container);
+      // var type = "serie TV";
+      // var attori = chiamataAjaxAttori(url, id);
     }
     var id = risultatiAPI[i].id;
     var story = risultatiAPI[i].overview;
@@ -77,7 +77,8 @@ function risultatiRender(risultatiAPI, ricerca, url) {
       "original_title" : originalTitle,
       "vote_average" : starRating,
       "flag-icon": bandieraLingua,
-      "story" : story
+      "story" : story,
+      // "actor" : attori
     };
     var html = template(context);
     container.append(html);
@@ -85,26 +86,28 @@ function risultatiRender(risultatiAPI, ricerca, url) {
   $(".input-titolo").val("");
 }
 
-function chiamataAjaxAttori(url, id, container) {
-  $.ajax(
-    {
-      "url": "https://api.themoviedb.org/3/" + url + "/" + id +"/credits?api_key=e809f4ea095436f35151e7d0e1a01040",
-      "method": "GET",
-      "success": function (data, stato) {
-        var risultatiAPI = data.cast;
-        var listaAttori = [];
-        for (var i = 0; i < 5; i++) {
-          var attore = risultatiAPI[i].name;
-          listaAttori.push(attore);
-        }
-        console.log(listaAttori);
-      },
-      "error": function (richiesta, stato, errori) {
-        console.log(errori);
-      }
-    }
-  );
-}
+// function chiamataAjaxAttori(url, id) {
+//   $.ajax(
+//     {
+//       "url": "https://api.themoviedb.org/3/" + url + "/" + id +"/credits?api_key=e809f4ea095436f35151e7d0e1a01040",
+//       "method": "GET",
+//       "success": function (data, stato) {
+//         var risultatiAPI = data.cast;
+//         var listaAttori = [];
+//         for (var i = 0; i < 5; i++) {
+//           console.log(risultatiAPI);
+//           var attore = risultatiAPI[i].name;
+//           console.log(attore);
+//           listaAttori.push(attore);
+//         }
+//       },
+//       "error": function (richiesta, stato, errori) {
+//         console.log(errori);
+//         var listaAttori = [];
+//       }
+//     }
+//   );
+// }
 
 
 // funzioni generiche
