@@ -50,14 +50,10 @@ function risultatiRender(risultatiAPI, ricerca, url) {
       var title = risultatiAPI[i].title;
       var originalTitle = risultatiAPI[i].original_title;
       var container = $("#lista-film");
-      // var type = "film";
-      // var attori = chiamataAjaxAttori(url, id);
     } else {
       var title = risultatiAPI[i].name;
       var originalTitle = risultatiAPI[i].original_name;
       var container = $("#lista-tv");
-      // var type = "serie TV";
-      // var attori = chiamataAjaxAttori(url, id);
     }
     var id = risultatiAPI[i].id;
     var story = risultatiAPI[i].overview;
@@ -78,36 +74,50 @@ function risultatiRender(risultatiAPI, ricerca, url) {
       "vote_average" : starRating,
       "flag-icon": bandieraLingua,
       "story" : story,
-      // "actor" : attori
+      "id" : id
     };
     var html = template(context);
     container.append(html);
+    chiamataAjaxDettagli(url, id);
   }
   $(".input-titolo").val("");
 }
 
-// function chiamataAjaxAttori(url, id) {
-//   $.ajax(
-//     {
-//       "url": "https://api.themoviedb.org/3/" + url + "/" + id +"/credits?api_key=e809f4ea095436f35151e7d0e1a01040",
-//       "method": "GET",
-//       "success": function (data, stato) {
-//         var risultatiAPI = data.cast;
-//         var listaAttori = [];
-//         for (var i = 0; i < 5; i++) {
-//           console.log(risultatiAPI);
-//           var attore = risultatiAPI[i].name;
-//           console.log(attore);
-//           listaAttori.push(attore);
-//         }
-//       },
-//       "error": function (richiesta, stato, errori) {
-//         console.log(errori);
-//         var listaAttori = [];
-//       }
-//     }
-//   );
-// }
+function chiamataAjaxDettagli(url, id) {
+  $.ajax(
+    {
+      "url": "https://api.themoviedb.org/3/" + url + "/" + id +"/credits?api_key=e809f4ea095436f35151e7d0e1a01040",
+      "method": "GET",
+      "success": function (data, stato) {
+        if(data.cast.length > 0) {
+          printDetails(data.cast, id);
+        }
+      },
+      "error": function (richiesta, stato, errori) {
+        console.log(errori);
+      }
+    }
+  );
+}
+
+function printDetails(data, id) {
+
+  var source = $("#cast-template").html();
+  var template = Handlebars.compile(source);
+  var limit;
+  if(data.length > 4) {
+    limit = 5;
+  } else {
+    limit = data.length;
+  }
+  for (var i = 0; i < limit; i++) {
+    var context = {
+      "name" : data[i].name
+    };
+    var html = template(context);
+    $("[data-id='"+id+"'] .cast").append(html);
+  }
+}
 
 
 // funzioni generiche
